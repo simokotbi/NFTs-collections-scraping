@@ -11,44 +11,23 @@ async function extractData() {
   try{
     let driver = new Builder()
     .forBrowser('chrome')
-   // .setChromeOptions(opts.headless())
+  // .setChromeOptions(opts.headless())
     .build();
   
   
-    const data=[];
-   
+     const data=[];
+    
     //goin to opensea collections:
-    await  driver.get("https://opensea.io/collections");
-    /*await driver.findElement(By.xpath('//*[@id="hz-page"]/div[5]/div/div/div/button')).click();
   
-    for(let page=1;page<3;page++){
-        await  driver.get("https://www.houzz.co.uk/professionals/query/best-15-interior-designers-near-you?tid=1201&p="+`${page}`);
-       
-       
-    const namestag= await driver.findElements(By.className('mlm'));
-   
-   const adress= await driver.findElements(By.className('hz-pro-search-result__contact-info'));
-  
-    const phone =await driver.findElements(By.className('hz-pro-search-result__contact-info'));
-    for(let i=0;i<namestag.length;i++){
-     adress[i].click();
-   
-     let phoneNumbers= await phone[i].getText();
-     let usersnames=await namestag[i].getText();
-  
-    data.push({'usersnames':usersnames,'phoneNumbers':phoneNumbers});
-     console.log( data);
-}
-}*/
-//savefile(JSON.stringify(data));
+   await  driver.get("https://rarity.tools/rumble-kong-league");
+   let cards= await driver.findElements(By.xpath('/html/body/div/div/div/div[2]/div[2]/div[8]/div[1]/div[1]'))
+   then(elements => console.log("length is ::::::::::::::::::::::::::::"+elements.length));
+   //scrapitem();
   }catch(err){console.log(err)}
 }
+async function scrapitem(){
+  try{
 
-/*savefile =(data)=>{
-  fs.writeFileSync('D:/helloworld.csv', data, function (err) {
-    if (err) return console.log(err);
-    console.log('Hello World > helloworld.txt');
-  });
-}*/
-//savefile();
+}catch(err){console.log(err)}}
+
 extractData();

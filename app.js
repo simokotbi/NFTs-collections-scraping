@@ -38,7 +38,7 @@ for(let pages=0;pages<209;pages++){
  cards=await driver.wait(until.elementLocated(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[8]/div[1]/div/div/div[2]/a')), 10000);
  card=await driver.findElements(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[8]/div[1]/div/div/div[2]/a'));
  button = await driver.findElement(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[9]/div[3]/div[2]'));
- // cards=await driver.wait(until.elementLocated(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[8]/div[1]/div/div/div[2]/a')), 10000);
+
 }
 savefile(JSON.stringify(data));
   }catch(err){console.log(err)}
@@ -50,9 +50,9 @@ async function scrap(sc,raink,Id){
       let rainking = await raink.getText();
       let id = await Id.getText();
       await console.log(score + "," + rainking + "," + id);
-      await  data.push({ "id": id, "score": score, "rainking": rainking });
+      await  data.push({ "Id": id, "Score": score, "Rainking": rainking });
        await clickoutofpopup();
-  }catch(err){console.log(err)}
+  }catch(err){console.log(err)} 
 }
 async function clickoutofpopup(){
   try{

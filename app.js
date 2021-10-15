@@ -7,6 +7,7 @@ const { Builder, By, Key, util, promise, until } = require("selenium-webdriver")
 const { serialize } = require("v8");
 const chrome = require('selenium-webdriver/chrome');
 let opts = new chrome.Options();
+
 const data=[];
   let driver = new Builder()
     .forBrowser('chrome')
@@ -15,14 +16,18 @@ const data=[];
 async function extractData() {
   try{
     //goin to opensea collections:
-   await  driver.get("https://rarity.tools/rumble-kong-league");
+    await  driver.get("https://rarity.tools/rumble-kong-league");
+let input =await driver.wait(until.elementLocated(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[7]/div[2]/div[6]/div/div[1]/input')),10000);
+await input.clear();
+await input.sendKeys('205');
 
   // let button= await driver.findElement(By.xpath(''))
   let cards=await driver.wait(until.elementLocated(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[8]/div[1]/div/div/div[2]/a')), 10000);
  //let cards= await driver.wait(until.elementLocated(By.className('overflow-hidden rounded-md m-0.5')));
   let card=await driver.findElements(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[8]/div[1]/div/div/div[2]/a'));
-  let button = await driver.findElement(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[9]/div[3]/div[2]'));
-for(let pages=0;pages<209;pages++){
+  //let button = await driver.findElement(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[9]/div[3]/div[2]'));
+  //let button = await driver.findElement(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[9]/div[3]/div[3]'));
+for(let pages=209;pages<=209;pages++){
   for(let i=0;i<48;i++){ 
     cards=await driver.wait(until.elementLocated(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[8]/div[1]/div/div/div[2]/a')), 10000);
     cards= await card[i].click();   
@@ -33,15 +38,20 @@ for(let pages=0;pages<209;pages++){
  await scrap(sc,raink,Id);
 
   } 
-  //await driver.wait(until.elementLocated(By.xpath('/html/body/div/div/div/div[2]/div[2]/div[7]/div[2]/div[6]/div/div[2]')),10000);
+  //if(pages<=2){
+ // await driver.wait(until.elementLocated(By.xpath('/html/body/div/div/div/div[2]/div[2]/div[7]/div[2]/div[6]/div/div[2]')),10000);
+ //}else{
+  await driver.wait(until.elementLocated(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[9]/div[3]/div[3]')),10000);
+ //}
+ 
  await button.click();
  cards=await driver.wait(until.elementLocated(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[8]/div[1]/div/div/div[2]/a')), 10000);
  card=await driver.findElements(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[8]/div[1]/div/div/div[2]/a'));
- button = await driver.findElement(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[9]/div[3]/div[2]'));
+ button = await driver.findElement(By.xpath('//*[@id="__layout"]/div/div[2]/div[2]/div[9]/div[3]/div[3]'));
 
 }
 savefile(JSON.stringify(data));
-  }catch(err){console.log(err)}
+  }catch(err){savefile(JSON.stringify(data));console.log(err);}
 }
 async function scrap(sc,raink,Id){
   try{
@@ -49,7 +59,7 @@ async function scrap(sc,raink,Id){
       let score = await sc.getText();
       let rainking = await raink.getText();
       let id = await Id.getText();
-      await console.log(score + "," + rainking + "," + id);
+     // await console.log(score + "," + rainking + "," + id);
       await  data.push({ "Id": id, "Score": score, "Rainking": rainking });
        await clickoutofpopup();
   }catch(err){console.log(err)} 
